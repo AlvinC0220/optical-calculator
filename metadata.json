@@ -1,0 +1,5 @@
+{
+  "name": "SC_Contrast 規格換算",
+  "description": "A precision calculator for optical lens parameters, spatial frequency analysis, and prefocus contrast chart generation based on sensor specifications.",
+  "requestFramePermissions": []
+}
