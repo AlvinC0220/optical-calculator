@@ -5,8 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-        // *** 關鍵變動 1：將 base 從 '/' 改為 './' ***
-        base: './', 
+        // 關鍵變動 1：將 base 設為 '/' 或直接刪除，讓 Netlify 根目錄解析
+        base: '/', 
         // ********************************************
         server: {
             port: 3000,
@@ -22,14 +22,15 @@ export default defineConfig(({ mode }) => {
                 '@': path.resolve(__dirname, '.'),
             }
         },
-        // *** 關鍵變動 2：新增 build 設定來處理靜態資源路徑 ***
+        // *** 關鍵變動 2：強制 Assets 不在子資料夾中 (解決 404) ***
         build: {
-            outDir: 'dist', // 確保輸出資料夾是 dist
+            outDir: 'dist',
             rollupOptions: {
                 output: {
-                    entryFileNames: 'assets/[name].js',
-                    chunkFileNames: 'assets/[name].js',
-                    assetFileNames: 'assets/[name].[ext]'
+                    // 將所有檔案都輸出到 dist 根目錄，而不是 dist/assets
+                    entryFileNames: '[name].js',
+                    chunkFileNames: '[name].js',
+                    assetFileNames: '[name].[ext]'
                 }
             }
         }
